@@ -34,6 +34,18 @@ static void debuggerd_connect()
     }
 }
 
+int smash_stack(int i) {
+    printf("crasher: deliberately corrupting stack...\n");
+    // Unless there's a "big enough" buffer on the stack, gcc
+    // doesn't bother inserting checks.
+    char buf[8];
+    // If we don't write something relatively unpredicatable
+    // into the buffer and then do something with it, gcc
+    // optimizes everything away and just returns a constant.
+    *(int*)(&buf[7]) = (uintptr_t) &buf[0];
+    return *(int*)(&buf[0]);
+}
+
 void test_call1()
 {
     *((int*) 32) = 1;
@@ -76,6 +88,19 @@ int ctest()
 
 int main(int argc, char **argv)
 {
+<<<<<<< HEAD
+=======
+    if(!strncmp(arg, "thread-", strlen("thread-"))) {
+        return do_action_on_thread(arg + strlen("thread-"));
+    }
+
+    if(!strcmp(arg,"smash-stack")) return smash_stack(42);
+    if(!strcmp(arg,"nostack")) crashnostack();
+    if(!strcmp(arg,"ctest")) return ctest();
+    if(!strcmp(arg,"exit")) exit(1);
+    if(!strcmp(arg,"abort")) maybeabort();
+
+>>>>>>> b9ba75a... Add a "smash-stack" option to crasher.
     pthread_t thr;
     pthread_attr_t attr;
 
