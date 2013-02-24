@@ -305,6 +305,10 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boost
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boost
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+<<<<<<< HEAD
+=======
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+>>>>>>> cfcd3aa... Seems to have fixed the lazy screen on on cappy
     chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
